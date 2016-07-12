@@ -1,11 +1,13 @@
-package com.opcoach.training.rental.ui.views;
+package com.opcoach.training.rental.ui.e4.views;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -23,37 +25,46 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.ViewPart;
 
 import com.opcoach.training.rental.RentalAgency;
-import com.opcoach.training.rental.core.RentalCoreActivator;
 import com.opcoach.training.rental.helpers.RentalAgencyGenerator;
 import com.opcoach.training.rental.ui.RentalUIActivator;
 import com.opcoach.training.rental.ui.RentalUIConstants;
+import com.opcoach.training.rental.ui.views.AgencyTreeDragSourceListener;
+import com.opcoach.training.rental.ui.views.RentalProvider;
 
 /**
- * @author ogattaz use now E4 RentalAgencyView
+ * @author ogattaz
+ *
  */
-@Deprecated
-public class RentalAgencyView extends ViewPart
-		implements IPropertyChangeListener, ISelectionListener, RentalUIConstants {
+public class RentalAgencyView implements RentalUIConstants {
 	public static final String VIEW_ID = "com.opcoach.rental.ui.rentalagencyview";
 
 	private TreeViewer agencyViewer;
 
+	// injected agency
+	@Inject
+	private RentalAgency pAgency;
+
 	private RentalProvider provider;
 
+	/**
+	 * 
+	 */
 	public RentalAgencyView() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	@Override
+	/**
+	 * @param parent
+	 */
+	@PostConstruct
 	public void createPartControl(Composite parent) {
+
 		parent.setLayout(new GridLayout(1, false));
 
 		final Composite comp = new Composite(parent, SWT.NONE);
@@ -94,7 +105,8 @@ public class RentalAgencyView extends ViewPart
 		agencyViewer.setLabelProvider(provider);
 
 		Collection<RentalAgency> agencies = new ArrayList<>();
-		agencies.add(RentalCoreActivator.getAgency());
+		// add injected agency
+		agencies.add(pAgency);
 
 		RentalAgency lyon = RentalAgencyGenerator.createSampleAgency();
 		lyon.setName("Lyon");
@@ -110,7 +122,8 @@ public class RentalAgencyView extends ViewPart
 		MenuManager menuManager = new MenuManager();
 		Menu menu = menuManager.createContextMenu(agencyViewer.getControl());
 		agencyViewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuManager, agencyViewer);
+		// E34 revoir la gestion du popup menu de la vue
+		// getSite().registerContextMenu(menuManager, agencyViewer);
 
 		// L'arbre est draggable
 		DragSource ds = new DragSource(agencyViewer.getControl(), DND.DROP_COPY);
@@ -119,39 +132,42 @@ public class RentalAgencyView extends ViewPart
 		ds.setTransfer(ts);
 		ds.addDragListener(new AgencyTreeDragSourceListener(agencyViewer));
 
-		getSite().setSelectionProvider(agencyViewer);
+		// E34 revoir la gestion du popup menu de la vue
+		// getSite().setSelectionProvider(agencyViewer);
 
 	}
 
-	@Override
+	// E34 revoir la gestiond des listener
 	public void dispose() {
-		RentalUIActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
-
-		// This treeview must remove the selection listener
-		getSite().getPage().removeSelectionListener(this);
-
-		super.dispose();
+		// RentalUIActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		//
+		// // This treeview must remove the selection listener
+		// getSite().getPage().removeSelectionListener(this);
+		//
+		// super.dispose();
 	}
 
-	@Override
+	// E34 revoir la gestiond des listener
 	public void init(IViewSite site) throws PartInitException {
-		super.init(site);
-		// On s'enregistre en tant que pref listener sur le preference store...
-		RentalUIActivator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
-
-		// This treeview is now selection listener to be synchronized with the
-		// dashboard.
-		getSite().getPage().addSelectionListener(this);
+		// super.init(site);
+		// // On s'enregistre en tant que pref listener sur le preference
+		// store...
+		// RentalUIActivator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		//
+		// // This treeview is now selection listener to be synchronized with
+		// the
+		// // dashboard.
+		// getSite().getPage().addSelectionListener(this);
 
 	}
 
-	@Override
+	// E34 revoir
 	public void propertyChange(PropertyChangeEvent event) {
 		provider.initPalette();
 		agencyViewer.refresh();
 	}
 
-	@Override
+	// E34 revoir gestion de la sélection
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		// Must check if this selection is coming from this part or from another
 		// one.
@@ -160,9 +176,10 @@ public class RentalAgencyView extends ViewPart
 
 	}
 
-	@Override
+	/**
+	 * 
+	 */
 	public void setFocus() {
-		// TODO Auto-generated method stub
 
 	}
 
