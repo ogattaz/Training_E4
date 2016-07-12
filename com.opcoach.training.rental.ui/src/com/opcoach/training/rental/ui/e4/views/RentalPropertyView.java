@@ -1,6 +1,7 @@
 package com.opcoach.training.rental.ui.e4.views;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
@@ -28,7 +29,6 @@ import org.eclipse.swt.widgets.Label;
 import com.opcoach.training.rental.Rental;
 import com.opcoach.training.rental.RentalAgency;
 import com.opcoach.training.rental.RentalPackage.Literals;
-import com.opcoach.training.rental.core.RentalCoreActivator;
 import com.opcoach.training.rental.ui.Messages;
 import com.opcoach.training.rental.ui.RentalUIActivator;
 import com.opcoach.training.rental.ui.RentalUIConstants;
@@ -45,7 +45,11 @@ public class RentalPropertyView {
 	private Label endDateLabel;
 	private DataBindingContext m_bindingContext;
 
+	// injected agency
+	@Inject
+	private RentalAgency pAgency;
 	private Label rentedObjectLabel;
+
 	private Label startDateLabel;
 
 	/**
@@ -57,6 +61,8 @@ public class RentalPropertyView {
 
 	/**
 	 * @param parent
+	 * @param aAgency
+	 *            injected agency
 	 */
 	@PostConstruct
 	public void createPartControl(Composite parent) {
@@ -108,8 +114,7 @@ public class RentalPropertyView {
 		endDateLabel = new Label(dateGroup, SWT.NONE);
 
 		// Fill with sample
-		RentalAgency agency = RentalCoreActivator.getAgency();
-		setRental(agency.getRentals().get(0));
+		setRental(pAgency.getRentals().get(0));
 		m_bindingContext = initDataBindings();
 
 		// Initialize binding

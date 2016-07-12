@@ -11,8 +11,20 @@ import com.opcoach.training.rental.helpers.RentalAgencyGenerator;
  */
 public class RentalCoreActivator implements BundleActivator {
 
+	private static RentalAgency agency = RentalAgencyGenerator.createSampleAgency();
+
 	// The plug-in ID
 	public static final String PLUGIN_ID = "com.opcoach.training.rental.core";
+
+	/**
+	 * Deprecated Now !
+	 * 
+	 * @return
+	 */
+	@Deprecated
+	public static RentalAgency getAgency() {
+		return agency;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -20,6 +32,7 @@ public class RentalCoreActivator implements BundleActivator {
 	 * @see
 	 * org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 	}
 
@@ -29,14 +42,9 @@ public class RentalCoreActivator implements BundleActivator {
 	 * @see
 	 * org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 
-	}
-
-	private static RentalAgency agency = RentalAgencyGenerator.createSampleAgency();
-
-	public static RentalAgency getAgency() {
-		return agency;
 	}
 
 }
