@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -69,8 +70,8 @@ public class RentalAgencyView implements RentalUIConstants {
 	 * @param parent
 	 */
 	@PostConstruct
-	public void createPartControl(Composite parent,
-			@Named(RENTAL_IMAGE_REGISTRY_ID) final ImageRegistry aImageRegistry) {
+	public void createPartControl(Composite parent, @Named(RENTAL_IMAGE_REGISTRY_ID) final ImageRegistry aImageRegistry,
+			EMenuService aMenuService) {
 
 		parent.setLayout(new GridLayout(1, false));
 
@@ -129,8 +130,10 @@ public class RentalAgencyView implements RentalUIConstants {
 		MenuManager menuManager = new MenuManager();
 		Menu menu = menuManager.createContextMenu(agencyViewer.getControl());
 		agencyViewer.getControl().setMenu(menu);
-		// E34 revoir la gestion du popup menu de la vue
-		// getSite().registerContextMenu(menuManager, agencyViewer);
+
+		// E3 => E4 => Attention , l'id est l'ID du menu popup associé à la part
+		// "RentalAgencyView"
+		aMenuService.registerContextMenu(agencyViewer.getControl(), "rental.popupmenu");
 
 		// L'arbre est draggable
 		DragSource ds = new DragSource(agencyViewer.getControl(), DND.DROP_COPY);

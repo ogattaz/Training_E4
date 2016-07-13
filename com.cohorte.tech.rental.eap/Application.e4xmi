@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6wlLcMgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.application" bindingContexts="_6wlLecgZEeSyMNYR5xypkQ">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_6wlLcMgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.application" bindingContexts="_6wlLecgZEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.window.main" selectedElement="_aBj2kEjREea8mPmI83xfxQ" label="Rental Application" width="800" height="800">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_aBj2kEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.perspectivestack.0" selectedElement="_e1PoAEjREea8mPmI83xfxQ">
       <children xsi:type="advanced:Perspective" xmi:id="_amBOgEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.perspective.0">
@@ -33,7 +33,14 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLj8gZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.handleditem.about" label="About" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
       </children>
     </mainMenu>
-    <sharedElements xsi:type="basic:Part" xmi:id="_OW_44EhNEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.part.rentalagencyview" contributionURI="bundleclass://com.opcoach.training.rental.ui/com.opcoach.training.rental.ui.e4.views.RentalAgencyView" label="RentalAgencyView" iconURI="platform:/plugin/com.opcoach.training.rental.ui/icons/Rentals.png"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_OW_44EhNEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.part.rentalagencyview" contributionURI="bundleclass://com.opcoach.training.rental.ui/com.opcoach.training.rental.ui.e4.views.RentalAgencyView" label="RentalAgencyView" iconURI="platform:/plugin/com.opcoach.training.rental.ui/icons/Rentals.png">
+      <handlers xmi:id="_wVB8AEj6Eea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.handler.0" contributionURI="bundleclass://com.opcoach.training.rental.ui/com.opcoach.training.rental.ui.e4.commands.CopyCustomer" command="_gdUccEj6Eea8mPmI83xfxQ"/>
+      <menus xsi:type="menu:PopupMenu" xmi:id="__-eykEj5Eea8mPmI83xfxQ" elementId="rental.popupmenu" label="rental.popupmenu">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_QX2YQEj7Eea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.handledmenuitem.copycustomer" label="copy customer" iconURI="platform:/plugin/com.opcoach.training.rental.ui/icons/Customers.png" command="_gdUccEj6Eea8mPmI83xfxQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_b2qdkEj-Eea8mPmI83xfxQ" coreExpressionId="com.opcoach.training.rental.e4.customer.selected"/>
+        </children>
+      </menus>
+    </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_-fnPoEgvEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.part.rentalproperty" contributionURI="bundleclass://com.opcoach.training.rental.ui/com.opcoach.training.rental.ui.e4.views.RentalPropertyView" label="RentalProperty" iconURI="platform:/plugin/com.opcoach.training.rental.ui/icons/Rentals.png"/>
     <trimBars xmi:id="_6wlLlcgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.trimbar.top">
       <children xsi:type="menu:ToolBar" xmi:id="_6wlLlsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.toolbar">
@@ -60,6 +67,7 @@
   <commands xmi:id="_6wlLgMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.open" commandName="openCommand"/>
   <commands xmi:id="_6wlLg8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
   <commands xmi:id="_6wlLhsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <commands xmi:id="_gdUccEj6Eea8mPmI83xfxQ" elementId="org.eclipse.ui.edit.copy" commandName="CopyCommand"/>
   <addons xmi:id="_6wlLcsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_6wlLc8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_6wlLdMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
