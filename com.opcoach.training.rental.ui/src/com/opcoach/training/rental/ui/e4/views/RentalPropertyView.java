@@ -16,6 +16,7 @@ import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
@@ -33,13 +34,12 @@ import com.opcoach.training.rental.Rental;
 import com.opcoach.training.rental.RentalAgency;
 import com.opcoach.training.rental.RentalPackage.Literals;
 import com.opcoach.training.rental.ui.Messages;
-import com.opcoach.training.rental.ui.RentalUIActivator;
 import com.opcoach.training.rental.ui.RentalUIConstants;
 
 /**
  * @author ogattaz
  */
-public class RentalPropertyView {
+public class RentalPropertyView implements RentalUIConstants {
 	public static final String VIEW_ID = "com.opcoach.rental.ui.views.rentalView"; //$NON-NLS-1$
 	private Rental currentRental;
 
@@ -70,7 +70,8 @@ public class RentalPropertyView {
 	 *            injected agency
 	 */
 	@PostConstruct
-	public void createPartControl(Composite parent) {
+	public void createPartControl(Composite parent,
+			@Named(RENTAL_IMAGE_REGISTRY_ID) final ImageRegistry aImageRegistry) {
 		parent.setLayout(new GridLayout(1, false));
 
 		Group infoGroup = new Group(parent, SWT.NONE);
@@ -96,7 +97,7 @@ public class RentalPropertyView {
 
 			@Override
 			public void dragStart(DragSourceEvent event) {
-				event.image = RentalUIActivator.getDefault().getImageRegistry().get(RentalUIConstants.IMG_AGENCY);
+				event.image = aImageRegistry.get(RentalUIConstants.IMG_AGENCY);
 			}
 
 		});

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6wlLcMgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.application" bindingContexts="_6wlLecgZEeSyMNYR5xypkQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.window.main" selectedElement="_aBj2kEjREea8mPmI83xfxQ" label="Rental Application" width="800" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="com.cohorte.tech.rental.eap.window.main" selectedElement="_aBj2kEjREea8mPmI83xfxQ" label="Rental Application" width="800" height="800">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_aBj2kEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.perspectivestack.0" selectedElement="_e1PoAEjREea8mPmI83xfxQ">
       <children xsi:type="advanced:Perspective" xmi:id="_amBOgEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.perspective.0">
         <children xsi:type="basic:PartStack" xmi:id="_J_NNQEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.partstack.2">
@@ -8,11 +8,16 @@
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_e1PoAEjREea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.perspective.1">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Jz1PsEhNEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partsashcontainer.0" containerData="" selectedElement="_cuqFgEhOEeakabLQau1KSw" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_cuqFgEhOEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partstack.0" containerData="30">
-            <children xsi:type="advanced:Placeholder" xmi:id="_tF1OMEjQEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.placeholder.0" ref="_OW_44EhNEeakabLQau1KSw"/>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_c3N0EEjcEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.partsashcontainer.1" selectedElement="_Jz1PsEhNEeakabLQau1KSw">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_Jz1PsEhNEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partsashcontainer.0" containerData="50" selectedElement="_cuqFgEhOEeakabLQau1KSw" horizontal="true">
+            <children xsi:type="basic:PartStack" xmi:id="_cuqFgEhOEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partstack.0" containerData="30" selectedElement="_tF1OMEjQEea8mPmI83xfxQ">
+              <children xsi:type="advanced:Placeholder" xmi:id="_tF1OMEjQEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.placeholder.0" ref="_OW_44EhNEeakabLQau1KSw"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_lW6kQEjcEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.partstack.3" containerData="70">
+              <children xsi:type="basic:Part" xmi:id="_mvFREEjcEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.part.dashboard" containerData="70" contributionURI="bundleclass://com.opcoach.training.rental.ui/com.opcoach.training.rental.ui.e4.views.RentalAgencyDashBoard" label="dashboard" iconURI="platform:/plugin/com.opcoach.training.rental.ui/icons/Rentals.png"/>
+            </children>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_d79mIEhOEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partstack.1" containerData="70">
+          <children xsi:type="basic:PartStack" xmi:id="_d79mIEhOEeakabLQau1KSw" elementId="com.cohorte.tech.rental.eap.partstack.1" containerData="50">
             <children xsi:type="advanced:Placeholder" xmi:id="_02SSwEjQEea8mPmI83xfxQ" elementId="com.cohorte.tech.rental.eap.placeholder.1" ref="_-fnPoEgvEeakabLQau1KSw"/>
           </children>
         </children>

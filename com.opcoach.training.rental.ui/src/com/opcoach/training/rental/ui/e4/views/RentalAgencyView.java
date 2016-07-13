@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.MenuManager;
@@ -35,7 +36,6 @@ import org.eclipse.ui.PartInitException;
 
 import com.opcoach.training.rental.RentalAgency;
 import com.opcoach.training.rental.helpers.RentalAgencyGenerator;
-import com.opcoach.training.rental.ui.RentalUIActivator;
 import com.opcoach.training.rental.ui.RentalUIConstants;
 import com.opcoach.training.rental.ui.views.AgencyTreeDragSourceListener;
 import com.opcoach.training.rental.ui.views.RentalProvider;
@@ -69,15 +69,15 @@ public class RentalAgencyView implements RentalUIConstants {
 	 * @param parent
 	 */
 	@PostConstruct
-	public void createPartControl(Composite parent) {
+	public void createPartControl(Composite parent,
+			@Named(RENTAL_IMAGE_REGISTRY_ID) final ImageRegistry aImageRegistry) {
 
 		parent.setLayout(new GridLayout(1, false));
 
 		final Composite comp = new Composite(parent, SWT.NONE);
 		comp.setLayout(new GridLayout(2, false));
-		ImageRegistry imgReg = RentalUIActivator.getDefault().getImageRegistry();
 		Button expandAll = new Button(comp, SWT.FLAT);
-		expandAll.setImage(imgReg.get(IMG_EXPAND_ALL));
+		expandAll.setImage(aImageRegistry.get(IMG_EXPAND_ALL));
 		expandAll.setToolTipText("Expand agency tree");
 		expandAll.addSelectionListener(new SelectionListener() {
 			@Override
@@ -90,7 +90,7 @@ public class RentalAgencyView implements RentalUIConstants {
 			}
 		});
 		Button collapseAll = new Button(comp, SWT.FLAT);
-		collapseAll.setImage(imgReg.get(IMG_COLLAPSE_ALL));
+		collapseAll.setImage(aImageRegistry.get(IMG_COLLAPSE_ALL));
 		collapseAll.setToolTipText("Collapse agency tree");
 		collapseAll.addSelectionListener(new SelectionListener() {
 
@@ -106,7 +106,7 @@ public class RentalAgencyView implements RentalUIConstants {
 
 		agencyViewer = new TreeViewer(parent);
 		agencyViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		provider = new RentalProvider();
+		provider = new RentalProvider(aImageRegistry);
 		agencyViewer.setContentProvider(provider);
 		agencyViewer.setLabelProvider(provider);
 
@@ -137,7 +137,11 @@ public class RentalAgencyView implements RentalUIConstants {
 		Transfer[] ts = new Transfer[] { TextTransfer.getInstance(), RTFTransfer.getInstance(),
 				URLTransfer.getInstance() };
 		ds.setTransfer(ts);
-		ds.addDragListener(new AgencyTreeDragSourceListener(agencyViewer));
+
+		AgencyTreeDragSourceListener wAgencyTreeDragSourceListener = new AgencyTreeDragSourceListener(agencyViewer,
+				aImageRegistry);
+
+		ds.addDragListener(wAgencyTreeDragSourceListener);
 
 		// E34 revoir la gestiond de la selection
 		// getSite().setSelectionProvider(agencyViewer);
