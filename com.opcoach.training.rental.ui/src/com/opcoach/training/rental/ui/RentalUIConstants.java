@@ -30,6 +30,9 @@ public interface RentalUIConstants {
 
 	public static final String PREF_RENTAL_OBJECT_COLOR = "rentalObjectColor";
 
+	// E3 => E4
+	static String RENTAL_EVENT_TOPIC_COPY_CUSTOMER = "rental/copy/customer";
+
 	// E3 => E4 gestion imageregistry par bundle
 	static String RENTAL_IMAGE_REGISTRY_ID = "RENTAL_IMAGE_REGISTRY_ID";
 

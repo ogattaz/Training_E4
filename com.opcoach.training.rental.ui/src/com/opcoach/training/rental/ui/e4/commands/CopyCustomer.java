@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.dnd.Clipboard;
@@ -14,8 +15,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.opcoach.training.rental.Customer;
+import com.opcoach.training.rental.ui.RentalUIConstants;
 
-public class CopyCustomer {
+public class CopyCustomer implements RentalUIConstants {
 
 	/**
 	 * @param aSelection
@@ -30,7 +32,8 @@ public class CopyCustomer {
 	 * @param aShell
 	 */
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) Customer aCutomer, Shell aShell) {
+	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) Customer aCutomer, Shell aShell,
+			IEventBroker aBroker) {
 
 		MessageDialog.openInformation(aShell, "Copy Client", "Copying this customer : " + (aCutomer.getDisplayName()));
 
@@ -43,6 +46,8 @@ public class CopyCustomer {
 		Object[] data = new Object[] { textData, rtfData };
 		clipboard.setContents(data, transfers);
 		clipboard.dispose();
+
+		aBroker.send(RentalUIConstants.RENTAL_EVENT_TOPIC_COPY_CUSTOMER, aCutomer);
 
 	}
 }
