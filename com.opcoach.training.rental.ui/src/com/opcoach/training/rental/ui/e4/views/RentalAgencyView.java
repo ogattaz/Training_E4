@@ -6,10 +6,14 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -28,7 +32,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 import com.opcoach.training.rental.RentalAgency;
 import com.opcoach.training.rental.helpers.RentalAgencyGenerator;
@@ -51,6 +54,9 @@ public class RentalAgencyView implements RentalUIConstants {
 	private RentalAgency pAgency;
 
 	private RentalProvider provider;
+
+	@Inject
+	private ESelectionService selectionService;
 
 	/**
 	 * 
@@ -115,8 +121,9 @@ public class RentalAgencyView implements RentalUIConstants {
 		agencyViewer.setInput(agencies);
 
 		// Association de la vue sur un contexte d'aide
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(agencyViewer.getControl(),
-				"com.opcoach.training.rental.ui.rentalContext");
+		// E34 voir la gestion de l'aide en ligne
+		// PlatformUI.getWorkbench().getHelpSystem().setHelp(agencyViewer.getControl(),
+		// "com.opcoach.training.rental.ui.rentalContext");
 
 		// Autorise le popup sur le treeviewer
 		MenuManager menuManager = new MenuManager();
@@ -132,9 +139,17 @@ public class RentalAgencyView implements RentalUIConstants {
 		ds.setTransfer(ts);
 		ds.addDragListener(new AgencyTreeDragSourceListener(agencyViewer));
 
-		// E34 revoir la gestion du popup menu de la vue
+		// E34 revoir la gestiond de la selection
 		// getSite().setSelectionProvider(agencyViewer);
 
+		agencyViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection wSelection = (IStructuredSelection) event.getSelection();
+				selectionService
+						.setSelection(wSelection.size() > 1 ? wSelection.toArray() : wSelection.getFirstElement());
+			}
+		});
 	}
 
 	// E34 revoir la gestiond des listener

@@ -2,13 +2,16 @@ package com.opcoach.training.rental.ui.e4.views;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoProperties;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.internal.databinding.conversion.DateToStringConverter;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.emf.databinding.FeaturePath;
@@ -48,6 +51,8 @@ public class RentalPropertyView {
 	// injected agency
 	@Inject
 	private RentalAgency pAgency;
+
+	private boolean pInstanciated = false;
 	private Label rentedObjectLabel;
 
 	private Label startDateLabel;
@@ -120,25 +125,9 @@ public class RentalPropertyView {
 		// Initialize binding
 		// m_bindingContext = initDataBindings();
 
-	}
+		pInstanciated = true;
 
-	// E34 portage selection listener
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
-	 */
-	// @Override
-	// public void dispose() {
-	// getSite().getPage().removeSelectionListener(this);
-	// super.dispose();
-	// }
-	//
-	// @Override
-	// public void init(IViewSite site) throws PartInitException {
-	// super.init(site);
-	// site.getPage().addSelectionListener(this);
-	// }
+	}
 
 	/**
 	 * @return
@@ -180,23 +169,14 @@ public class RentalPropertyView {
 		return bindingContext;
 	}
 
-	// E34
-
-	// @Override
-	// public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-	// if (selection.isEmpty())
-	// return;
-	//
-	// if (selection instanceof IStructuredSelection) {
-	// Object sel = ((IStructuredSelection) selection).getFirstElement();
-	//
-	// // La selection courante est elle un Rental ou adaptable en Rental ?
-	// Rental r = Platform.getAdapterManager().getAdapter(sel, Rental.class);
-	// setRental(r);
-	//
-	// }
-	//
-	// }
+	// portage selection listener
+	@Inject
+	@Optional
+	public void reveiveSelection(@Named(IServiceConstants.ACTIVE_SELECTION) Rental aRental) {
+		if (pInstanciated) {
+			setRental(aRental);
+		}
+	}
 
 	/**
 	 * 
